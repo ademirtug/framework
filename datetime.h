@@ -1,21 +1,16 @@
-// framework.cpp : Defines the entry point for the console application.
-//
+#ifndef __DATETIME_H__
+#define __DATETIME_H__
 
-#include "stdafx.h"
 #include <ctime>
 #include <time.h>
 #include <string>
-#include <iostream>
 #include <sstream>
 #include <iomanip>
-
-
-using namespace std;
 
 class datetime
 {
 	struct tm _val;
-	void retime() 
+	void retime()
 	{
 		time_t tt = mktime(&_val);
 		_val = *localtime(&tt);
@@ -56,7 +51,7 @@ public:
 		char buff[100];
 		strftime(buff, 100, format.c_str(), &_val);
 		val += buff;
-		
+
 		return val;
 	}
 	void operator=(const std::string& val)
@@ -64,7 +59,7 @@ public:
 		std::istringstream ss(val);
 		ss >> std::get_time(&this->_val, "%Y-%m-%dT%H:%M:%SZ");
 	}
-	
+
 
 	void add_seconds(int seconds)
 	{
@@ -88,7 +83,7 @@ public:
 	}
 	void add_months(int months)
 	{
-		_val.tm_mon  += months;
+		_val.tm_mon += months;
 		retime();
 	}
 	void add_years(int years)
@@ -100,12 +95,4 @@ public:
 };
 
 
-int main()
-{
-	datetime dt2 = "2018-01-01T09:09:09Z";
-	dt2.add_days(40);
-	std::cout << dt2.tostring();
-
-    return 0;
-}
-
+#endif//

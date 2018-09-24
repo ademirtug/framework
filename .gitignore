@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+*.pdb
+*.idb
+*.tlog
+*.log
+*.tlog
+*.lastbuildstate
+*.lastbuildstate
+*.log
