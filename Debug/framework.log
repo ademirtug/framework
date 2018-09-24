@@ -1,7 +1,9 @@
 ﻿  framework.cpp
-c:\users\akn\documents\visual studio 2017\projects\framework\framework\framework.cpp(21): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\akn\documents\visual studio 2017\projects\framework\framework\datetime.h(16): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\time.h(505): note: see declaration of 'localtime'
-c:\users\akn\documents\visual studio 2017\projects\framework\framework\framework.cpp(44): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\akn\documents\visual studio 2017\projects\framework\framework\datetime.h(39): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\time.h(505): note: see declaration of 'localtime'
+c:\users\akn\documents\visual studio 2017\projects\framework\framework\framework.cpp(41): warning C4996: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::copy': Call to 'std::basic_string::copy' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.10.25017\include\xstring(3096): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::copy'
   framework.vcxproj -> C:\Users\akn\documents\visual studio 2017\Projects\framework\Debug\framework.exe
   framework.vcxproj -> C:\Users\akn\documents\visual studio 2017\Projects\framework\Debug\framework.pdb (Partial PDB)

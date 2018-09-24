@@ -2,110 +2,66 @@
 //
 
 #include "stdafx.h"
+#include "datetime.h"
 #include <ctime>
 #include <time.h>
 #include <string>
-#include <iostream>
 #include <sstream>
 #include <iomanip>
-
+#include <iostream>
+#include <windows.h>
+#include <WinInet.h>
+#include <vector>
 
 using namespace std;
 
-class datetime
+class http_client
 {
-	struct tm _val;
-	void retime() 
-	{
-		time_t tt = mktime(&_val);
-		_val = *localtime(&tt);
-	}
+	HINTERNET hInternet, hConnect, hRequest, hUrl;
 public:
-	datetime()
+	std::string get_page(std::string url)
 	{
-	}
-	datetime(const datetime& rhs)
-	{
-		this->_val = rhs._val;
-	}
-	datetime(const std::string& value)
-	{
-		this->operator=(value);
-	}
-	~datetime()
-	{
-	}
+		string result;
+		char buffer[4096];
+		memset(buffer, 0, 4096);
+		std::vector<char> vb;
 
-	static datetime now()
-	{
-		datetime dt;
 
-		time_t now = time(0);
-		dt._val = *localtime(&now);
+		hInternet = InternetOpen(TEXT("3d_engine"), INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
+		if (hInternet != NULL)
+		{
+			hConnect = InternetOpenUrlA(hInternet, url.c_str(), NULL, 0, 0, NULL);
 
-		return dt;
-	}
-	std::string tostring()
-	{
-		return tostring("%Y-%m-%dT%H:%M:%SZ");
-	}
-	std::string tostring(std::string format)
-	{
-		std::string val;
+			if (hConnect != NULL)
+			{
+				DWORD dwByteRead = 0;
+				do
+				{ 
+					InternetReadFile(hConnect, buffer, sizeof(buffer) - 1, &dwByteRead);
+					result.copy(buffer, dwByteRead);
 
-		char buff[100];
-		strftime(buff, 100, format.c_str(), &_val);
-		val += buff;
-		
-		return val;
-	}
-	void operator=(const std::string& val)
-	{
-		std::istringstream ss(val);
-		ss >> std::get_time(&this->_val, "%Y-%m-%dT%H:%M:%SZ");
-	}
-	
+					vb.insert(vb.end(), buffer, buffer+dwByteRead);
 
-	void add_seconds(int seconds)
-	{
-		_val.tm_sec += seconds;
-		retime();
-	}
-	void add_minutes(int minutes)
-	{
-		_val.tm_min += minutes;
-		retime();
-	}
-	void add_hours(int hours)
-	{
-		_val.tm_hour += hours;
-		retime();
-	}
-	void add_days(int days)
-	{
-		_val.tm_mday += days;
-		retime();
-	}
-	void add_months(int months)
-	{
-		_val.tm_mon  += months;
-		retime();
-	}
-	void add_years(int years)
-	{
-		_val.tm_year += years;
-		retime();
-	}
+					memset(buffer, 0, 4096);
+				} while (dwByteRead);
 
+				InternetCloseHandle(hConnect);
+			}
+			InternetCloseHandle(hInternet);
+		}
+		return result;
+	}
 };
+
 
 
 int main()
 {
-	datetime dt2 = "2018-01-01T09:09:09Z";
-	dt2.add_days(40);
-	std::cout << dt2.tostring();
+	http_client hc;
 
+	string page = hc.get_page("https://dev.virtualearth.net/REST/V1/Imagery/Map/road?mapArea=35.799994,25.642090,42.114524,44.615479&ms=500,500&pp=37.428175,-122.169680;;ST&ml=TrafficFlow&key=AuxHX17Q-LDnXLPRCncQ3tEFgpfR4e7rSMCIMH3Faig4GP54xCFGghlyW_oTfu0c");
+
+	std::cout << page.size();
     return 0;
 }
 
