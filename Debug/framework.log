@@ -1,0 +1,5 @@
+﻿  framework.cpp
+c:\users\akn\documents\visual studio 2017\projects\framework\framework\framework.cpp(35): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\time.h(505): note: see declaration of 'localtime'
+  framework.vcxproj -> c:\users\akn\documents\visual studio 2017\Projects\framework\Debug\framework.exe
+  framework.vcxproj -> c:\users\akn\documents\visual studio 2017\Projects\framework\Debug\framework.pdb (Partial PDB)
