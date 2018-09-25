@@ -68,4 +68,4 @@ public:
 	}
 };
 
-#endif
+#endif //__HTTP_CLIENT__
