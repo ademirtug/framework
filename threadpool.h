@@ -7,23 +7,28 @@
 #include <functional>
 #include <mutex>
 #include <iostream>
-#include <vector>
-
 
 using namespace std;
 
+
 class iwork
 {
-
 public:
-
 	virtual void perform()
 	{
 	};
 	virtual ~iwork() {};
 };
 
-
+class tilerequest : public iwork
+{
+	quadtile* __tile;
+public:
+	tilerequest();
+	tilerequest(quadtile* tile);
+	~tilerequest();
+	virtual void perform();
+};
 
 class safethread
 {
@@ -36,13 +41,11 @@ public:
 	};
 	~safethread()
 	{
-		if (th != nullptr)
+		if (th != nullptr && th->joinable())
 		{
 			th->detach();
 		}
 	};
-
-
 };
 
 
@@ -52,9 +55,9 @@ protected:
 	bool running;
 	size_t maxallowed;
 
-	std::vector<shared_ptr<iwork> > works;
-	std::vector<shared_ptr<safethread>> threads;
-	std::vector<shared_ptr<safethread>> deadthreads;
+	vector<shared_ptr<iwork> > works;
+	vector<shared_ptr<safethread>> threads;
+	vector<shared_ptr<safethread>> deadthreads;
 
 	mutex mtx_dthreads;
 	mutex mtx_threads;

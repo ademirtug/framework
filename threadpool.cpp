@@ -2,7 +2,7 @@
 #include "threadpool.h"
 
 
-threadpool::threadpool() : maxallowed(5), running(1)
+threadpool::threadpool() : maxallowed(5), running(true)
 {
 }
 threadpool::~threadpool()
@@ -16,8 +16,6 @@ void threadpool::queue(shared_ptr<iwork> work)
 	deadthreads.erase(deadthreads.begin(), deadthreads.end());
 	lk_dead.unlock();
 
-
-
 	unique_lock ul_works(mtx_works);
 	works.push_back(work);
 	ul_works.unlock();
@@ -28,7 +26,7 @@ void threadpool::queue(shared_ptr<iwork> work)
 	{
 		shared_ptr<safethread> st(new safethread(std::bind(&threadpool::handleworks, this)));
 		threads.push_back(st);
-	} 
+	}
 	ul_threads.unlock();
 }
 
@@ -69,7 +67,6 @@ void threadpool::handleworks()
 				}
 			}
 			lk_threads.unlock();
-			
 
 			if (th != nullptr)
 			{
@@ -77,8 +74,8 @@ void threadpool::handleworks()
 				deadthreads.push_back(th);
 				lk_dead.unlock();
 			}
+			break;
 		}
-			
 	}
 }
 
