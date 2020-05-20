@@ -9,13 +9,14 @@
 
 class datetime
 {
-	struct tm _val;
+	
 	void retime()
 	{
 		time_t tt = mktime(&_val);
 		_val = *localtime(&tt);
 	}
 public:
+	struct tm _val;
 	datetime()
 	{
 	}
@@ -90,6 +91,28 @@ public:
 	{
 		_val.tm_year += years;
 		retime();
+	}
+
+	inline int hour()
+	{
+		return _val.tm_hour;
+	}
+	inline int minute()
+	{
+		return _val.tm_min;
+	}
+	inline int second()
+	{
+		return _val.tm_sec;
+	}
+
+	inline int year()
+	{
+		return _val.tm_year;
+	}
+	inline int month()
+	{
+		return _val.tm_mon;
 	}
 
 };
