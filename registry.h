@@ -11,8 +11,7 @@ public:
     std::string subkey;
     std::string valueName;
     bool opened = false;
-
-    registry_key() {}
+    DWORD dwDisposition;
 
     registry_key(HKEY _hKeyParent, std::string _subkey, std::string _valueName)
     {
@@ -30,7 +29,7 @@ public:
     }
     bool createopen()
     {
-        DWORD dwDisposition, Ret;
+        DWORD Ret;
         Ret = RegCreateKeyExA(hKeyParent, subkey.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE,
             KEY_ALL_ACCESS, NULL, &hKey, &dwDisposition);
         if (Ret != ERROR_SUCCESS)
@@ -50,7 +49,7 @@ public:
             return false;
         return true;
     }
-    DWORD readdword(std::string valueName)
+    DWORD readdword()
     {
         DWORD data, Ret;
         DWORD len = sizeof(DWORD);
@@ -59,6 +58,16 @@ public:
         if (Ret == ERROR_SUCCESS)
             return data;
         throw std::exception("failed to read registry key data!!!");
+    }
+    bool readdword(std::string valueName, DWORD* data)
+    {
+        DWORD Ret;
+        DWORD len = sizeof(DWORD);
+        Ret = RegQueryValueExA(hKey, valueName.c_str(), NULL, NULL, (LPBYTE)(data), &len);
+
+        if (Ret == ERROR_SUCCESS)
+            return true;
+        return false;
     }
 };
 
