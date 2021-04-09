@@ -1,35 +1,38 @@
 #ifndef __REGISTRY_H__
 #define __REGISTRY_H__
 
+#include <string>
+
+
 class registry_key
 {
 public:
-    HKEY hKeyParent,hKey;
-    const char* subkey;
-    const char* valueName
+    HKEY hKeyParent, hKey;
+    std::string subkey;
+    std::string valueName;
     bool opened = false;
 
-    registry_key(){}
+    registry_key() {}
 
-    registry_key(HKEY _hKeyParent, const char* _subkey, const char* _valueName)
+    registry_key(HKEY _hKeyParent, std::string _subkey, std::string _valueName)
     {
         hKeyParent = _hKeyParent;
         subkey = _subkey;
-        valuename = _valuename;
+        valueName = _valueName;
 
         createopen();
     }
     ~registry_key()
     {
-        if(hKey)
+        if (hKey)
             RegCloseKey(hKey);
 
     }
     bool createopen()
     {
         DWORD dwDisposition, Ret;
-        Ret = RegCreateKeyExA(hKeyParent, subkey, 0, NULL, REG_OPTION_NON_VOLATILE,
-                KEY_ALL_ACCESS, NULL, &hKey, &dwDisposition);
+        Ret = RegCreateKeyExA(hKeyParent, subkey.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE,
+            KEY_ALL_ACCESS, NULL, &hKey, &dwDisposition);
         if (Ret != ERROR_SUCCESS)
             return false;
 
@@ -39,24 +42,24 @@ public:
     bool write(DWORD data)
     {
         DWORD Ret;
-        if(!opened)
-            if(!createopen())
-            return false;
+        if (!opened)
+            if (!createopen())
+                return false;
 
-        if (ERROR_SUCCESS != RegSetValueExA(hKey, valueName,0,REG_DWORD,reinterpret_cast<BYTE*>(&data),sizeof(data)))
+        if (ERROR_SUCCESS != RegSetValueExA(hKey, valueName.c_str(), 0, REG_DWORD, reinterpret_cast<BYTE*>(&data), sizeof(data)))
             return false;
         return true;
     }
-    DWORD readdword(const char* valueName)
+    DWORD readdword(std::string valueName)
     {
-        DWORD data;
+        DWORD data, Ret;
         DWORD len = sizeof(DWORD);
-        Ret = RegQueryValueExA( hKey,valueName, NULL,NULL,(LPBYTE)(&data),&len);
+        Ret = RegQueryValueExA(hKey, valueName.c_str(), NULL, NULL, (LPBYTE)(&data), &len);
 
         if (Ret == ERROR_SUCCESS)
             return data;
-        throw exception("failed to read registry key data!!!");
+        throw std::exception("failed to read registry key data!!!");
     }
-}
+};
 
 #endif //__REGISTRY_H__

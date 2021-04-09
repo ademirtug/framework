@@ -1,0 +1,2 @@
+C:\Users\akin.demirtug\Documents\GitHub\framework\Debug\framework.exe
+C:\Users\akin.demirtug\Documents\GitHub\framework\Debug\framework.pdb

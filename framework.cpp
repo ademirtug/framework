@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "datetime.h"
 #include "http_client.h"
-
+#include "registry.h"
 
 #include <string>
 #include <iostream>

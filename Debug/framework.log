@@ -1,9 +1,5 @@
-﻿  stdafx.cpp
-  framework.cpp
-c:\users\akn\documents\visual studio 2017\projects\framework\framework\datetime.h(16): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\time.h(505): note: see declaration of 'localtime'
-c:\users\akn\documents\visual studio 2017\projects\framework\framework\datetime.h(39): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\time.h(505): note: see declaration of 'localtime'
-  threadpool.cpp
-  Generating Code...
-  framework.vcxproj -> C:\Users\akn\documents\visual studio 2017\Projects\framework\Debug\framework.exe
+﻿  framework.cpp
+C:\Users\akin.demirtug\Documents\GitHub\framework\datetime.h(16,11): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\akin.demirtug\Documents\GitHub\framework\datetime.h(40,14): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\akin.demirtug\Documents\GitHub\framework\registry.h(44,15): warning C4101: 'Ret': unreferenced local variable
+  framework.vcxproj -> C:\Users\akin.demirtug\Documents\GitHub\framework\Debug\framework.exe

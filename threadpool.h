@@ -20,16 +20,6 @@ public:
 	virtual ~iwork() {};
 };
 
-class tilerequest : public iwork
-{
-	quadtile* __tile;
-public:
-	tilerequest();
-	tilerequest(quadtile* tile);
-	~tilerequest();
-	virtual void perform();
-};
-
 class safethread
 {
 public:
