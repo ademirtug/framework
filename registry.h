@@ -1,7 +1,7 @@
 #ifndef __REGISTRY_H__
 #define __REGISTRY_H__
 
-class registry
+class registry_key
 {
 public:
     HKEY hKeyParent,hKey;
@@ -9,14 +9,9 @@ public:
     const char* valueName
     bool opened = false;
 
-    registry(){}
-    ~registry()
-    {
-        if(hKey)
-            RegCloseKey(hKey);
+    registry_key(){}
 
-    }
-    registry(HKEY _hKeyParent, const char* _subkey, const char* _valueName)
+    registry_key(HKEY _hKeyParent, const char* _subkey, const char* _valueName)
     {
         hKeyParent = _hKeyParent;
         subkey = _subkey;
@@ -24,7 +19,12 @@ public:
 
         createopen();
     }
+    ~registry_key()
+    {
+        if(hKey)
+            RegCloseKey(hKey);
 
+    }
     bool createopen()
     {
         DWORD dwDisposition, Ret;
